@@ -2,9 +2,8 @@ import axios from 'axios';
 import {v4 as uuid } from 'uuid';
 import { useState } from 'react';
 
-// Hook to maintain array of responses from fetch requests.  Accepts optional params for url query string
-//  useAxios('www.api.com/', ['sports','volleyball']) => retrieves data from www.api.com/sports/volleyball/
-const useAxios = (baseUrl) => {
+// Hook to maintain array of responses from fetch requests.  Accepts optional formatting function for response data
+const useAxios = (baseUrl, formattingFunc=(d)=>{return d}) => {
     const [data, setData] = useState([]);
     const fetchNew = async (param='') => {
         let url = baseUrl;
@@ -12,7 +11,8 @@ const useAxios = (baseUrl) => {
             url += `${param}/` 
         };
         const res = await axios.get(url);
-        setData([...data, {...res.data, id: uuid() }]);
+        const formattedData = formattingFunc(res.data);
+        setData([...data, {...formattedData, id: uuid() }]);
     };
     const clearData = () => {
         setData([]);

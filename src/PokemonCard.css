@@ -4,9 +4,9 @@
   border: 5px solid #3d7dca;
   box-sizing: border-box;
   color: #003a70;
-  width: 40%;
+  width: 50%;
   display: inline-block;
-  height: 106px;
+  height: auto;
 }
 
 .PokemonCard img {
